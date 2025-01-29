@@ -22,6 +22,12 @@ const agregarProducto = async (req, res) => {
         return res.status(400).json({ success: false, message: 'La categoría proporcionada no existe' });
     }
 
+    // Verificar si la categoría ya existe
+    const productoExistente = await Product.findOne({ nombre });
+    if (productoExistente) {
+        return res.status(400).json({ success: false, message: 'El producto ya existe' });
+    }
+
     // Crear un nuevo producto
     const nuevoProducto = new Product({ nombre, descripcion, precio, categoria, cantidad });
     const productoGuardado = await nuevoProducto.save();

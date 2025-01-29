@@ -1,4 +1,6 @@
+require('dotenv').config();
 const User = require('../models/usuario');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 // Registrar un nuevo usuario
@@ -27,21 +29,35 @@ const login = async (req, res) => {
     const { correo, password } = req.body;
 
     try {
-    // Buscar el usuario por correo
-    const usuario = await User.findOne({ correo });
-    if (!usuario) {
-        return res.status(404).json({ mensaje: 'Usuario no encontrado' });
-    }
+        const jwtSecret = process.env.JWT_SECRET;
 
-    // Verificar la contraseña
-    const esValida = await bcrypt.compare(password, usuario.password);
-    if (!esValida) {
-        return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
-    }
+        // Buscar el usuario por correo
+        const usuario = await User.findOne({ correo });
+        if (!usuario) {
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        }
 
-    res.status(200).json({ mensaje: 'Autenticación exitosa' });
+        // Verificar la contraseña
+        const esValida = await bcrypt.compare(password, usuario.password);
+        if (!esValida) {
+            return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
+        }
+
+        // Generar el token JWT
+        const token = jwt.sign(
+            { id: usuario._id, correo: usuario.correo },
+            jwtSecret, // Clave secreta desde el archivo .env
+            { expiresIn: '1h' } // Expiración del token en 1 hora
+        );
+
+        res.status(200).json({ 
+            mensaje: 'Autenticación exitosa',
+            token,
+            expiresIn: '2h'
+        });
     } catch (error) {
-    res.status(500).json({ mensaje: 'Error al autenticar el usuario', error });
+        console.error('Error en login:', error);
+        res.status(500).json({ mensaje: 'Error al autenticar el usuario', error });
     }
 };
 
