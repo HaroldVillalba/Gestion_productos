@@ -9,15 +9,15 @@ const {
 } = require('../controllers/categoria');
 
 // Listar todas las categorías
-router.get('/', verificarToken, listarCategorias);
+router.get('/list', verificarToken, listarCategorias);
 
 // Agregar una nueva categoría
-router.post('/', verificarToken, agregarCategoria);
+router.post('/add', verificarToken, agregarCategoria);
 
 // Editar una categoría existente
-router.put('/:id', verificarToken, editarCategoria);
+router.put('/update/:id', verificarToken, editarCategoria);
 
 // Eliminar una categoría
-router.delete('/:id', verificarToken, eliminarCategoria);
+router.delete('/:id/delete', verificarToken, eliminarCategoria);
 
 module.exports = router;

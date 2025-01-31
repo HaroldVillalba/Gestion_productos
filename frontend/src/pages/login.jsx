@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import '../utils/login.css';
 
 const Login = () => {
@@ -7,10 +8,10 @@ const Login = () => {
     const [correo, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
         if (correo === '' || password === '') {
             setError('Por favor, ingrese ambos campos');
         } else {
@@ -23,8 +24,11 @@ const Login = () => {
                 password
             });
     
-            // Si la respuesta es exitosa
-            alert('Login exitoso!');
+            localStorage.setItem('token', response.data.token);
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+
+            navigate("/productos");
+
             console.log(response.data);
             } catch (err) {
             // Si hay un error (credenciales incorrectas)

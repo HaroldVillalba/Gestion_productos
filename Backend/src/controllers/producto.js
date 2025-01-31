@@ -1,5 +1,5 @@
-const Product = require('../models/producto'); // Modelo de producto
-const Category = require('../models/categoria'); // Modelo de categoría
+const Product = require('../models/producto');
+const Category = require('../models/categoria');
 
 // Listar productos con categorías
 const listarProductos = async (req, res) => {

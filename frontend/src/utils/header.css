@@ -1,0 +1,54 @@
+/* Estilos para el Header */
+.header {
+    background-color: #1D4ED8; /* Color de fondo azul */
+    color: white; /* Texto blanco */
+    padding: 20px 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.navbar li {
+    font-size: 1rem;
+}
+
+.navbar a,
+.navbar button {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.navbar a:hover,
+.navbar button:hover {
+    color: #93C5FD; /* Color al pasar el mouse */
+    transform: scale(1.1);
+}
+
+.navbar button {
+    background-color: #EF4444; /* Rojo para el botón de cerrar sesión */
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.navbar button:hover {
+    background-color: #DC2626;
+}

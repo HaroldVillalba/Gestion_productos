@@ -1,12 +1,20 @@
-import React from 'react';
-import Login from './pages/login';  // Asegúrate de que la ruta sea correcta
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/login";
+import Productos from "./pages/productos";
+import Categorias from "./pages/categorias";
+import Registro from "./pages/registro";
 
 function App() {
-  return (
-    <div className="App">
-      <Login />
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/categorias" element={<Categorias />} />
+                <Route path="/productos" element={<Productos />} />
+                <Route path="/usuarios" element={<Registro />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
